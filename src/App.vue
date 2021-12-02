@@ -1,20 +1,14 @@
-<template>
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-</template>
+<template>Hello World</template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
 
 export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld,
-  },
 });
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,5 +16,6 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  background-color: $lightColor;
 }
 </style>
