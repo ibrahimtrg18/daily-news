@@ -1,4 +1,6 @@
-<template>Hello World</template>
+<template>
+  <router-view />
+</template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -22,7 +24,10 @@ body {
   font-family: 'Open Sans', Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $grayColor;
-  background-color: $whiteColor;
+  color: $textColor;
+  background-color: $backgroundColor;
+  font-size: 16px;
+  line-height: 100%;
+  font-weight: 400;
 }
 </style>
