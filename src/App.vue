@@ -38,6 +38,12 @@ body {
   font-weight: 400;
 }
 
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .container {
   padding: 0 10px;
   @media screen and (min-width: 480px) {
