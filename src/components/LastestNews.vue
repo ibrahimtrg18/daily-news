@@ -1,19 +1,70 @@
 <template>
   <div class="lastest-news">
     <h1 class="title">Lastest News</h1>
+    <div class="news-list" v-if="articles.length > 0">
+      <Card
+        v-for="article in articles"
+        :key="article.title"
+        :title="article.title"
+        :description="article.description"
+        :image="article.urlToImage"
+        :publishedAt="article.publishedAt"
+        :source="article.source.name"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { fetchTopHeadlines } from '../utils/services';
+import Card from './Card.vue';
+
+interface Article {
+  author?: string | null;
+  title?: string | null;
+  description?: string | null;
+  url?: string | null;
+  source?: string | null;
+  image?: string | null;
+  category?: string | null;
+  language?: string | null;
+  country?: string | null;
+  published_at?: string | null;
+}
 
 export default defineComponent({
   name: 'LastestNews',
+  components: {
+    Card,
+  },
+  data() {
+    return {
+      articles: [] as Article[],
+    };
+  },
+  methods: {
+    fetchTopHeadlines,
+  },
+  async mounted() {
+    const data = await fetchTopHeadlines({});
+
+    this.articles = data;
+  },
 });
 </script>
 
 <style lang="scss">
 .lastest-news {
+  & > .news-list {
+    position: relative;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: masonry;
+    gap: 10px;
+  }
+
   & > .title {
     color: $primaryColor;
     text-transform: capitalize;
