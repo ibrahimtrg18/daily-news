@@ -1,6 +1,8 @@
 <template>
   <Navbar />
-  <router-view />
+  <main class="container">
+    <router-view />
+  </main>
 </template>
 
 <script lang="ts">
@@ -34,5 +36,34 @@ body {
   font-size: 16px;
   line-height: 100%;
   font-weight: 400;
+}
+
+.container {
+  padding: 0 10px;
+  @media screen and (min-width: 480px) {
+    padding: 0 15px;
+  }
+  @media screen and (min-width: 720px) {
+    padding: 0 25px;
+  }
+  @media screen and (min-width: 960px) {
+    padding: 0 35px;
+  }
+  @media screen and (min-width: 1200px) {
+    padding: 0 45px;
+  }
+
+  & > .content {
+    padding: 10px 0;
+    @media screen and (min-width: 720px) {
+      padding: 15px 0;
+    }
+    @media screen and (min-width: 960px) {
+      padding: 20px 0;
+    }
+    @media screen and (min-width: 1200px) {
+      padding: 25px 0;
+    }
+  }
 }
 </style>
