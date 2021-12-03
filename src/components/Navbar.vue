@@ -1,6 +1,6 @@
 <template>
   <nav class="nav">
-    <div class="navbar">
+    <div class="navbar container">
       <div class="navbar-content">
         <span @click="toggleSidebar()" class="icon drawer"><Icon name="menu" /></span>
         <div class="logo">dailynews</div>
@@ -53,14 +53,14 @@ nav {
     background-color: $backgroundColor;
     color: $primaryColor;
     text-transform: uppercase;
+    box-shadow: 0 0 2px 0 $borderColor;
 
     .navbar-content {
       display: flex;
       align-items: center;
       width: 100%;
       min-height: 58px;
-      padding: 20px 10px 14px;
-      box-shadow: 0 0 2px 0 $borderColor;
+      padding: 20px 0 14px;
 
       @media screen and (min-width: 480px) {
         min-height: unset;
