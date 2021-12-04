@@ -1,7 +1,8 @@
 <template>
   <div class="lastest-news">
     <h1 class="title">{{ $t('message.newsTitle') }}</h1>
-    <div class="news-list" v-if="articles.length > 0">
+    <div class="loading" v-if="isLoading">Loading...</div>
+    <div class="news-list" v-else-if="articles.length > 0">
       <Card
         v-for="article in articles"
         :key="article.title"
@@ -46,22 +47,27 @@ export default defineComponent({
   data() {
     return {
       articles: [] as Article[],
+      isLoading: false,
     };
   },
   methods: {
     fetchTopHeadlines,
   },
   async mounted() {
+    this.isLoading = true;
     const data = await fetchTopHeadlines({ country: this.language });
 
+    this.isLoading = false;
     this.articles = data;
   },
   watch: {
     async language(value) {
+      this.isLoading = true;
       const data = await fetchTopHeadlines({
         country: value,
       });
 
+      this.isLoading = false;
       this.articles = data;
     },
   },
