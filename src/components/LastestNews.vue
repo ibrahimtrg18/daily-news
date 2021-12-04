@@ -60,9 +60,19 @@ export default defineComponent({
     position: relative;
     max-width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: masonry;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
     gap: 10px;
+
+    @media screen and (min-width: 480px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (min-width: 720px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (min-width: 960px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   & > .title {
