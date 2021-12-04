@@ -3,16 +3,16 @@
     <div class="header">
       <h1 class="title">Yesterday</h1>
       <div class="action">
-        <span class="icon left">
+        <span class="icon left" @click="onSlideToLeft(slide + 1)">
           <Icon name="arrow-left" />
         </span>
-        <span class="icon right">
+        <span class="icon right" @click="onSlideToRight(slide - 1)">
           <Icon name="arrow-right" />
         </span>
       </div>
     </div>
     <div class="loading" v-if="isLoading">Loading...</div>
-    <div class="news-list" v-else-if="articles.length > 0">
+    <div class="news-list" v-show="articles.length > 0">
       <NewsItem
         v-for="article in articles"
         :key="article.title"
@@ -22,6 +22,7 @@
         :publishedAt="article.publishedAt"
         :source="article.source.name"
         :url="article.url"
+        :style="{ transform: 'translateX(' + slide * 500 + 'px)' }"
       />
     </div>
   </div>
@@ -49,10 +50,21 @@ export default defineComponent({
     return {
       articles: [] as Article[],
       isLoading: false,
+      slide: 0,
     };
   },
   methods: {
     fetchTopHeadlines,
+    onSlideToLeft(value: number) {
+      if (this.slide < 0) {
+        this.slide = value;
+      }
+    },
+    onSlideToRight(value: number) {
+      if (this.slide >= -10) {
+        this.slide = value;
+      }
+    },
   },
   async mounted() {
     this.isLoading = true;
@@ -76,6 +88,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+body {
+  overflow-x: hidden;
+}
+
 .feature-news {
   & .header {
     display: flex;
@@ -91,9 +107,13 @@ export default defineComponent({
     }
 
     & > .action {
-      display: flex;
+      display: none;
       align-items: center;
       gap: 10px;
+
+      @media screen and (min-width: 480px) {
+        display: flex;
+      }
 
       & > .icon {
         cursor: pointer;
@@ -108,8 +128,18 @@ export default defineComponent({
   & > .news-list {
     display: flex;
     flex-wrap: nowrap;
+    overflow-x: auto;
     gap: 10px;
-    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    transition: transform 0.3s linear;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media screen and (min-width: 480px) {
+      overflow: unset;
+    }
   }
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
   <a class="news-item" :href="url" target="_blank">
-    <div class="news-image">
-      <img :src="image" :alt="name" />
+    <div class="news-image" v-if="image">
+      <img :src="image" :alt="title" />
     </div>
-    <div class="news-content">
+    <div class="news-content" :class="{ full: !image }">
       <h1 class="news-title" v-html="title" />
       <p class="news-description" v-html="description" />
     </div>
@@ -29,7 +29,7 @@ export default defineComponent({
       type: String,
     },
     source: {
-      type: String,
+      type: [Object, String],
     },
     url: {
       type: String,
@@ -45,6 +45,7 @@ export default defineComponent({
   max-width: 500px;
   text-decoration: none;
   color: $textColor;
+  transition: transform 0.3s linear;
 
   &:hover {
     background-color: #fff;
@@ -66,6 +67,10 @@ export default defineComponent({
 
   & > .news-content {
     padding: 10px;
+
+    &.full {
+      min-width: 500px;
+    }
 
     & > .news-title {
       font-size: 1.15rem;
