@@ -5,8 +5,19 @@
         <span @click="toggleSidebar()" class="icon drawer"><Icon name="menu" /></span>
         <div class="logo">dailynews</div>
         <ul class="menu">
-          <li class="menu-item"><router-link to="/">news</router-link></li>
+          <li class="menu-item">
+            <router-link to="/">{{ $t('message.menuNews') }}</router-link>
+            <router-link to="/politic">{{ $t('message.menuPolitic') }}</router-link>
+            <router-link to="/health">{{ $t('message.menuHealth') }}</router-link>
+          </li>
         </ul>
+        <div class="navbar-language">
+          <select v-model="propsLanguage">
+            <option v-for="language in languages" :key="language" :value="language">
+              {{ language }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="sidebar" :class="{ active: openSidebar }">
@@ -16,7 +27,11 @@
           dailynews
         </div>
         <ul class="menu">
-          <li class="menu-item"><router-link to="/">news</router-link></li>
+          <li class="menu-item">
+            <router-link to="/">{{ $t('message.menuNews') }}</router-link>
+            <router-link to="/politic">{{ $t('message.menuPolitic') }}</router-link>
+            <router-link to="/health">{{ $t('message.menuHealth') }}</router-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -29,9 +44,14 @@ import Icon from './Icon.vue';
 
 export default defineComponent({
   name: 'Navbar',
+  components: {
+    Icon,
+  },
+  props: ['language'],
   data() {
     return {
       openSidebar: false,
+      languages: ['id', 'en'],
     };
   },
   methods: {
@@ -39,8 +59,15 @@ export default defineComponent({
       this.openSidebar = !this.openSidebar;
     },
   },
-  components: {
-    Icon,
+  computed: {
+    propsLanguage: {
+      get() {
+        return this.language;
+      },
+      set(value) {
+        this.$emit('update:language', value);
+      },
+    },
   },
 });
 </script>
@@ -48,12 +75,12 @@ export default defineComponent({
 <style lang="scss">
 nav {
   position: relative;
+  box-shadow: 0 0 2px 0 $borderColor;
 
   .navbar {
     background-color: $backgroundColor;
     color: $primaryColor;
     text-transform: uppercase;
-    box-shadow: 0 0 2px 0 $borderColor;
 
     .navbar-content {
       display: flex;
@@ -82,7 +109,7 @@ nav {
         line-height: normal;
 
         @media screen and (min-width: 480px) {
-          display: block;
+          display: flex;
         }
       }
 
@@ -101,6 +128,7 @@ nav {
   }
 
   .sidebar {
+    z-index: 10;
     background-color: $backgroundColor;
     color: $primaryColor;
     text-transform: uppercase;
@@ -166,6 +194,40 @@ nav {
   .icon.close {
     margin-right: 16px;
     cursor: pointer;
+  }
+
+  .navbar-language {
+    margin-left: auto;
+
+    & > select {
+      background: transparent;
+      border: transparent;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      line-height: 100%;
+      padding: 5px 10px;
+      -webkit-appearance: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $whiteColor;
+      }
+
+      &::-ms-expand {
+        display: none;
+      }
+
+      & > option {
+        background: $whiteColor;
+        border: 1px solid $darkColor;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        line-height: 120%;
+        cursor: pointer;
+      }
+    }
   }
 }
 </style>
