@@ -5,8 +5,8 @@ import router from './router';
 import messages from './utils/messages';
 
 const i18n = createI18n({
-  locale: 'en',
+  locale: 'id',
   messages,
 });
 
-createApp(App).use(router).use(i18n).mount('#app');
+createApp(App).use(i18n).use(router).mount('#app');
