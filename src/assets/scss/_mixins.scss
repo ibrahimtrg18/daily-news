@@ -1,0 +1,9 @@
+@mixin title($align) {
+  color: $primaryColor;
+  text-transform: capitalize;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 120%;
+  text-align: $align;
+  margin-bottom: 25px;
+}
