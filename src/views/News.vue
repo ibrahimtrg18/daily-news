@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <LastestNews />
+    <LastestNews :language="language" />
   </div>
 </template>
 
@@ -13,6 +13,7 @@ export default defineComponent({
   components: {
     LastestNews,
   },
+  props: ['language'],
 });
 </script>
 
