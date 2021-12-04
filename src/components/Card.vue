@@ -33,7 +33,7 @@ export default defineComponent({
       type: String,
     },
     source: {
-      type: String,
+      type: [Object, String],
     },
     url: {
       type: String,

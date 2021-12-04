@@ -3,7 +3,10 @@ export interface Article {
   title?: string | null;
   description?: string | null;
   url?: string | null;
-  source?: string | null;
+  source?: {
+    id?: string | null;
+    name?: string | null;
+  };
   urlToImage?: string | null;
   category?: string | null;
   language?: string | null;
