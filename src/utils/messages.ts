@@ -2,13 +2,21 @@ export default {
   id: {
     message: {
       menuNews: 'Berita',
-      menuNewsTitle: 'Berita Utama',
+      newsTitle: 'Berita Utama',
+      menuPolitic: 'Politik',
+      politicTitle: 'Berita Utama Politik',
+      menuHealth: 'Kesehatan',
+      healthTitle: 'Berita Utama Kesehatan',
     },
   },
   en: {
     message: {
       menuNews: 'News',
-      menuNewsTitle: 'Top Headlines',
+      newsTitle: 'Top Headlines',
+      menuPolitic: 'Politics',
+      politicTitle: 'Top Headlines Politics',
+      menuHealth: 'Health',
+      healthTitle: 'Top Headlines Health',
     },
   },
 };
