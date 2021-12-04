@@ -21,19 +21,7 @@
 import { defineComponent } from 'vue';
 import { fetchTopHeadlines } from '../utils/services';
 import Card from './Card.vue';
-
-interface Article {
-  author?: string | null;
-  title?: string | null;
-  description?: string | null;
-  url?: string | null;
-  source?: string | null;
-  image?: string | null;
-  category?: string | null;
-  language?: string | null;
-  country?: string | null;
-  published_at?: string | null;
-}
+import { Article } from '../interfaces/Articles';
 
 export default defineComponent({
   name: 'LastestNews',
