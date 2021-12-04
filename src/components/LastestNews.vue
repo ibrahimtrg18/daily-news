@@ -77,6 +77,8 @@ export default defineComponent({
 
 <style lang="scss">
 .lastest-news {
+  margin-bottom: 25px;
+
   & > .news-list {
     position: relative;
     max-width: 100%;
