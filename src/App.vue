@@ -1,7 +1,7 @@
 <template>
-  <Navbar />
+  <Navbar :language="language" @update:language="changeLanguage" />
   <main class="container">
-    <router-view />
+    <router-view :language="language" />
   </main>
 </template>
 
@@ -13,6 +13,21 @@ export default defineComponent({
   name: 'App',
   components: {
     Navbar,
+  },
+  data() {
+    return {
+      language: this.$root?.$i18n.locale,
+    };
+  },
+  methods: {
+    changeLanguage(value: any) {
+      this.language = value;
+    },
+  },
+  watch: {
+    language(value) {
+      this.$i18n.locale = value;
+    },
   },
 });
 </script>
