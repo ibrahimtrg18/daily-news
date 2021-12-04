@@ -11,6 +11,7 @@
         :image="article.urlToImage"
         :publishedAt="article.publishedAt"
         :source="article.source.name"
+        :url="article.url"
       />
     </div>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <a :href="url" target="_blank" class="card">
     <img class="card-image" :src="image" alt="title" v-if="image" />
     <div class="card-content">
       <h1 class="card-title" v-html="title" />
@@ -10,7 +10,7 @@
         <span class="card-time">{{ convertDateTimeFromNow(publishedAt) }}</span>
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script lang="ts">
@@ -35,6 +35,9 @@ export default defineComponent({
     source: {
       type: String,
     },
+    url: {
+      type: String,
+    },
   },
   methods: {
     convertDateTimeFromNow,
@@ -48,6 +51,14 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 20px 10px $cardBoxShadowColor;
+  text-decoration: none;
+  color: $textColor;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    background-color: #fff;
+  }
 
   & > .card-image {
     width: 100%;
