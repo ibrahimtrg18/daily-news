@@ -17,10 +17,10 @@ export async function fetchTopHeadlines({
   page = 1,
 }: fetchTopHeadlinesArguments) {
   try {
+    const enCountry = country === 'en' ? 'us' : 'id';
     const res = await fetch(
-      `${BASE_URL}/top-headlines?apiKey=${API_KEY}&country=${country}&pageSize=${limit}&page=${page}${
-        category && `&category=${category}`
-      }${query && `&q=${query}`}`,
+      `${BASE_URL}/top-headlines?apiKey=${API_KEY}&country=${enCountry}&pageSize=${limit}&page=${page}
+      ${category ? `&category=${category}` : ''}${query ? `&q=${query}` : ''}`,
     );
     const data = await res.json();
 
