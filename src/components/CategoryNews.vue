@@ -1,7 +1,8 @@
 <template>
   <div class="category-news">
     <h1 class="title">{{ title }}</h1>
-    <div class="news-list">
+    <div class="loading" v-if="isLoading">Loading...</div>
+    <div class="news-list" v-else-if="articles.length > 0">
       <Card
         v-for="article in articles"
         :key="article.title"
@@ -38,6 +39,9 @@ export default defineComponent({
     },
     page: {
       type: Number,
+    },
+    isLoading: {
+      type: Boolean,
     },
   },
   methods: {
