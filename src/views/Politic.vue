@@ -48,6 +48,18 @@ export default defineComponent({
     }
     this.isLoading = false;
   },
+  watch: {
+    async language(value) {
+      this.isLoading = true;
+      const data = await this.fetchTopHeadlinesByLanguage(value!);
+
+      if (data.articles) {
+        this.articles = data.articles;
+      }
+
+      this.isLoading = false;
+    },
+  },
 });
 </script>
 
