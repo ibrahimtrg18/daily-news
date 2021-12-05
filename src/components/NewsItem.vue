@@ -3,6 +3,9 @@
     <div class="news-image" v-if="image">
       <img :src="image" :alt="title" />
     </div>
+    <div class="news-image" v-else-if="!image">
+      <img src="@/assets/images/no-image.png" alt="not found" />
+    </div>
     <div class="news-content" :class="{ full: !image }">
       <h1 class="news-title" v-html="title" />
       <p class="news-description" v-html="description" />

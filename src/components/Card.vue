@@ -1,6 +1,7 @@
 <template>
   <a :href="url" target="_blank" class="card">
-    <img class="card-image" :src="image" alt="title" v-if="image" />
+    <img class="card-image" :src="image" :alt="title" v-if="image" />
+    <img class="card-image" src="@/assets/images/no-image.png" alt="not found" v-else-if="!image" />
     <div class="card-content">
       <h1 class="card-title" v-html="title" />
       <p class="card-description" v-html="description" />
