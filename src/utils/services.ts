@@ -22,8 +22,9 @@ export async function fetchTopHeadlines({
   try {
     const enCountry = country === 'en' ? 'us' : 'id';
     const res = await fetch(
-      `${BASE_URL}/top-headlines?apiKey=${API_KEY}&country=${enCountry}&pageSize=${limit}&page=${page}
-      ${category ? `&category=${category}` : ''}${query ? `&q=${query}` : ''}`,
+      `${BASE_URL}/top-headlines?apiKey=${API_KEY}&country=${enCountry}&pageSize=${limit}&page=${page}${
+        category ? `&category=${category}` : ''
+      }${query ? `&q=${query}` : ''}`,
     );
     const data = await res.json();
 
@@ -41,7 +42,7 @@ export async function fetchTopHeadlines({
 type fetchEverythingArguments = {
   query: string;
   category?: string;
-  country?: string;
+  language?: string;
   limit?: string | number;
   page?: string | number;
 };
@@ -49,15 +50,15 @@ type fetchEverythingArguments = {
 export async function fetchEverything({
   query,
   category,
-  country = 'id',
+  language = 'id',
   limit = 12,
   page = 1,
 }: fetchEverythingArguments): Promise<ResponseEverything> {
   try {
-    const enCountry = country === 'en' ? 'us' : 'id';
     const res = await fetch(
-      `${BASE_URL}/top-headlines?apiKey=${API_KEY}&country=${enCountry}&pageSize=${limit}&page=${page}
-      ${category ? `&category=${category}` : ''}${query ? `&q=${query}` : ''}`,
+      `${BASE_URL}/everything?apiKey=${API_KEY}&language=${language}&pageSize=${limit}&page=${page}${
+        category ? `&category=${category}` : ''
+      }${query ? `&q=${query}` : ''}`,
     );
     const data = await res.json();
 
