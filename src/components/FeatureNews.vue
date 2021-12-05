@@ -102,8 +102,7 @@ body {
     margin-bottom: 15px;
 
     & > .title {
-      @include title(left);
-      margin-bottom: 0;
+      @include title(1.5rem, left, 0);
     }
 
     & > .action {

@@ -87,13 +87,7 @@ export default defineComponent({
   }
 
   & > .title {
-    color: $primaryColor;
-    text-transform: capitalize;
-    font-size: 1.75rem;
-    font-weight: 800;
-    line-height: 120%;
-    text-align: center;
-    margin-bottom: 25px;
+    @include title(1.75rem, center, 0 0 25px 0);
   }
 }
 </style>
