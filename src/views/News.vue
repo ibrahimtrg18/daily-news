@@ -1,19 +1,19 @@
 <template>
   <div class="content">
-    <LastestNews :language="language" />
+    <ListNews :language="language" />
     <FeatureNews :language="language" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import LastestNews from '../components/LastestNews.vue';
+import ListNews from '../components/ListNews.vue';
 import FeatureNews from '../components/FeatureNews.vue';
 
 export default defineComponent({
   name: 'News',
   components: {
-    LastestNews,
+    ListNews,
     FeatureNews,
   },
   props: ['language'],

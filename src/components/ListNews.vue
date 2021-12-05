@@ -24,7 +24,7 @@ import Card from './Card.vue';
 import { Article } from '../interfaces/Articles';
 
 export default defineComponent({
-  name: 'LastestNews',
+  name: 'ListNews',
   components: {
     Card,
   },
