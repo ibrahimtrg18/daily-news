@@ -7,9 +7,34 @@
         <ul class="menu">
           <li class="menu-item">
             <router-link to="/">{{ $t('news.menu') }}</router-link>
+          </li>
+          <li class="menu-item">
             <router-link to="/politic">{{ $t('politic.menu') }}</router-link>
+          </li>
+          <li class="menu-item">
             <router-link to="/health">{{ $t('health.menu') }}</router-link>
+          </li>
+          <li class="menu-item">
             <router-link to="/business">{{ $t('business.menu') }}</router-link>
+          </li>
+        </ul>
+        <ul class="menu group">
+          <li class="menu-item">
+            <router-link to="/">{{ $t('news.menu') }}</router-link>
+          </li>
+          <li class="menu-item">
+            <span @click="openDropdown = !openDropdown">{{ $t('category.menu') }}</span>
+            <ul class="menu-dropdown" :class="{ show: openDropdown }">
+              <li class="menu-item">
+                <router-link to="/politic">{{ $t('politic.menu') }}</router-link>
+              </li>
+              <li class="menu-item">
+                <router-link to="/health">{{ $t('health.menu') }}</router-link>
+              </li>
+              <li class="menu-item">
+                <router-link to="/business">{{ $t('business.menu') }}</router-link>
+              </li>
+            </ul>
           </li>
         </ul>
         <div class="navbar-search">
@@ -72,6 +97,7 @@ export default defineComponent({
       debounceOnScroll: false,
       timeoutIdScroll: null,
       isScrolled: false,
+      openDropdown: false,
     };
   },
   methods: {
@@ -166,6 +192,7 @@ nav {
         line-height: 100%;
         margin-right: 20px;
         color: $primaryColor;
+        user-select: none;
       }
 
       .menu {
@@ -176,12 +203,27 @@ nav {
         line-height: normal;
 
         @media screen and (min-width: 480px) {
+          display: none;
+
+          &.group {
+            display: flex;
+          }
+        }
+
+        @media screen and (min-width: 960px) {
           display: flex;
+
+          &.group {
+            display: none;
+          }
         }
       }
 
       li {
-        a {
+        position: relative;
+
+        a,
+        span {
           color: $primaryColor;
           text-decoration: none;
           font-size: 1rem;
@@ -189,6 +231,54 @@ nav {
           line-height: 100%;
           padding: 0 10px;
           margin: 0 10px;
+
+          &:hover {
+            color: $secondaryColor;
+          }
+        }
+
+        & > .menu-dropdown {
+          list-style: none;
+          position: absolute;
+          background-color: $backgroundColor;
+          z-index: 1;
+          box-shadow: 0 0 1px 1px $borderColor;
+          top: calc(100%);
+          opacity: 0;
+          visibility: hidden;
+          transition: transform 0.3s ease-out;
+
+          &.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(10px);
+          }
+
+          &:before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid $backgroundColor;
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 -2px 1px $borderColor);
+          }
+
+          & > li {
+            display: block;
+            width: 100%;
+
+            a,
+            span {
+              display: block;
+              padding: 0.5rem 10px;
+              margin: 0;
+            }
+          }
         }
       }
     }
@@ -243,6 +333,10 @@ nav {
           line-height: 100%;
           color: $primaryColor;
           padding: 10px;
+
+          &:hover {
+            color: $secondaryColor;
+          }
         }
       }
     }
@@ -343,9 +437,11 @@ nav {
       padding: 5px 10px;
       -webkit-appearance: none;
       cursor: pointer;
+      color: $primaryColor;
 
       &:hover {
         background-color: $whiteColor;
+        color: $secondaryColor;
       }
 
       &::-ms-expand {
@@ -360,6 +456,7 @@ nav {
         text-transform: uppercase;
         line-height: 120%;
         cursor: pointer;
+        color: $primaryColor;
       }
     }
   }

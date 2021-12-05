@@ -16,6 +16,9 @@ export default {
       menu: 'Bisnis',
       title: 'Berita Bisnis',
     },
+    category: {
+      menu: 'Kategori',
+    },
     search: {
       title: 'Kata Kunci: {query}',
     },
@@ -36,6 +39,9 @@ export default {
     business: {
       menu: 'Business',
       title: 'Headlines Business',
+    },
+    category: {
+      menu: 'Category',
     },
     search: {
       title: 'Keyword: {query}',
