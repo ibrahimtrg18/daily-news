@@ -4,6 +4,7 @@ import Politic from '../views/Politic.vue';
 import Health from '../views/Health.vue';
 import Business from '../views/Business.vue';
 import Entertainment from '../views/Entertainment.vue';
+import Sport from '../views/Sport.vue';
 import Search from '../views/Search.vue';
 
 const routes = [
@@ -36,6 +37,11 @@ const routes = [
     path: '/entertainment',
     name: 'Entertainment',
     component: Entertainment,
+  },
+  {
+    path: '/sport',
+    name: 'Sport',
+    component: Sport,
   },
   {
     path: '/search',

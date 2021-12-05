@@ -20,6 +20,10 @@ export default {
       menu: 'Hiburan',
       title: 'Berita Hiburan',
     },
+    sport: {
+      menu: 'Olahraga',
+      title: 'Berita Olahraga',
+    },
     category: {
       menu: 'Kategori',
     },
@@ -47,6 +51,10 @@ export default {
     entertainment: {
       menu: 'Entertainment',
       title: 'Headlines Entertainment',
+    },
+    sport: {
+      menu: 'Sports',
+      title: 'Headlines Sports',
     },
     category: {
       menu: 'Category',
