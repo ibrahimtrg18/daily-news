@@ -1,6 +1,6 @@
 <template>
   <div class="lastest-news">
-    <h1 class="title">{{ $t('news.title') }}</h1>
+    <h1 class="title">{{ title }}</h1>
     <div class="loading" v-if="isLoading">Loading...</div>
     <div class="news-list" v-else-if="articles.length > 0">
       <Card
@@ -18,8 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { fetchTopHeadlines } from '../utils/services';
+import { defineComponent, PropType } from 'vue';
 import Card from './Card.vue';
 import { Article } from '../interfaces/Articles';
 
@@ -29,49 +28,14 @@ export default defineComponent({
     Card,
   },
   props: {
+    title: {
+      type: String,
+    },
     language: {
       type: String,
     },
-  },
-  data() {
-    return {
-      articles: [] as Article[],
-      isLoading: false,
-    };
-  },
-  methods: {
-    async fetchTopHeadlinesByLanguage(language: string) {
-      try {
-        const data = await fetchTopHeadlines({ country: language, limit: 10, page: 3 });
-        return data;
-      } catch (err) {
-        console.error(err);
-        return {
-          articles: [],
-        };
-      }
-    },
-  },
-  async mounted() {
-    this.isLoading = true;
-    const data = await this.fetchTopHeadlinesByLanguage(this.language!);
-
-    if (data.articles) {
-      this.articles = data.articles;
-    }
-
-    this.isLoading = false;
-  },
-  watch: {
-    async language(value) {
-      this.isLoading = true;
-      const data = await this.fetchTopHeadlinesByLanguage(value!);
-
-      if (data.articles) {
-        this.articles = data.articles;
-      }
-
-      this.isLoading = false;
+    articles: {
+      type: Array as PropType<Array<Article>>,
     },
   },
 });
