@@ -62,7 +62,7 @@ export default defineComponent({
 <style lang="scss">
 .category-news {
   & > .title {
-    @include title(1.75rem, center, 25px);
+    @include title(1.75rem, center, 0 0 25px 0);
   }
 
   & > .news-list {
