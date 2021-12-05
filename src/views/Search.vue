@@ -1,7 +1,7 @@
 <template>
   <div class="content"></div>
   <ListNews :language="language" :articles="articles" :title="$t('search.title', { query })" />
-  <Pagination :page="page" @update:page="onPageChange" />
+  <Pagination :page="page" @update:page="onPageChange" :disabledRightButton="disabledRightButton" />
 </template>
 
 <script lang="ts">
@@ -24,6 +24,7 @@ export default defineComponent({
       isLoading: false,
       page: 1,
       limit: 12,
+      disabledRightButton: false,
     };
   },
   computed: {
@@ -50,6 +51,11 @@ export default defineComponent({
           page,
         });
         this.isLoading = false;
+        if (this.limit * this.page >= data.totalResults) {
+          this.disabledRightButton = true;
+        } else {
+          this.disabledRightButton = false;
+        }
         return data;
       } catch (err) {
         console.error(err);

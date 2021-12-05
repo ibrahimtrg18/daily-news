@@ -5,6 +5,7 @@
       :articles="articles"
       :page="page"
       :isLoading="isLoading"
+      :disabledRightButton="disabledRightButton"
       @update:page="onPageChange"
     />
   </div>
@@ -28,6 +29,7 @@ export default defineComponent({
       isLoading: false,
       page: 1,
       limit: 10,
+      disabledRightButton: false,
     };
   },
   methods: {
@@ -41,6 +43,11 @@ export default defineComponent({
           category: 'politics',
         });
         this.isLoading = false;
+        if (this.limit * this.page >= data.totalResults) {
+          this.disabledRightButton = true;
+        } else {
+          this.disabledRightButton = false;
+        }
         return data;
       } catch (err) {
         console.error(err);

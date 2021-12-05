@@ -14,7 +14,11 @@
         :url="article.url"
       />
     </div>
-    <Pagination :page="page" @update:page="onPageChange" />
+    <Pagination
+      :page="page"
+      @update:page="onPageChange"
+      :disabledRightButton="disabledRightButton"
+    />
   </div>
 </template>
 
@@ -41,6 +45,9 @@ export default defineComponent({
       type: Number,
     },
     isLoading: {
+      type: Boolean,
+    },
+    disabledRightButton: {
       type: Boolean,
     },
   },

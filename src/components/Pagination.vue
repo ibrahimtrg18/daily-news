@@ -1,16 +1,16 @@
 <template>
   <div class="pagination">
     <div class="pagination-control">
-      <button class="pagination-action left">
-        <span class="icon chevron-left" @click="onPageChange(page - 1)">
+      <button class="pagination-action left" :disabled="page <= 1">
+        <span class="icon chevron-left" @click="page >= 1 && onPageChange(page - 1)">
           <Icon name="chevron-left" />
         </span>
       </button>
       <div class="pagination-number">
         <span>{{ page }}</span>
       </div>
-      <button class="pagination-action right">
-        <span class="icon chevron-right" @click="onPageChange(page + 1)">
+      <button class="pagination-action right" :disabled="disabledRightButton">
+        <span class="icon chevron-right" @click="!disabledRightButton && onPageChange(page + 1)">
           <Icon name="chevron-right" />
         </span>
       </button>
@@ -30,6 +30,9 @@ export default defineComponent({
   props: {
     page: {
       type: Number,
+    },
+    disabledRightButton: {
+      type: Boolean,
     },
   },
   methods: {
