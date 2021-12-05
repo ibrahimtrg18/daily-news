@@ -12,6 +12,10 @@ export default {
       menu: 'Kesehatan',
       title: 'Berita Kesehatan',
     },
+    business: {
+      menu: 'Bisnis',
+      title: 'Berita Bisnis',
+    },
     search: {
       title: 'Kata Kunci: {query}',
     },
@@ -28,6 +32,10 @@ export default {
     health: {
       menu: 'Health',
       title: 'Headlines Health',
+    },
+    business: {
+      menu: 'Business',
+      title: 'Headlines Business',
     },
     search: {
       title: 'Keyword: {query}',

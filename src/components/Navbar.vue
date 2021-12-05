@@ -9,6 +9,7 @@
             <router-link to="/">{{ $t('news.menu') }}</router-link>
             <router-link to="/politic">{{ $t('politic.menu') }}</router-link>
             <router-link to="/health">{{ $t('health.menu') }}</router-link>
+            <router-link to="/business">{{ $t('business.menu') }}</router-link>
           </li>
         </ul>
         <div class="navbar-search">
@@ -44,6 +45,7 @@
             <router-link to="/">{{ $t('news.menu') }}</router-link>
             <router-link to="/politic">{{ $t('politic.menu') }}</router-link>
             <router-link to="/health">{{ $t('health.menu') }}</router-link>
+            <router-link to="/business">{{ $t('business.menu') }}</router-link>
           </li>
         </ul>
       </div>
