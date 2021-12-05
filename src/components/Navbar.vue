@@ -17,6 +17,8 @@
             placeholder="Search"
             class="search"
             :class="{ show: showSearchInput }"
+            v-model="search"
+            @keypress="searchNews"
           />
           <span class="icon search" @click="showSearchInput = !showSearchInput"
             ><Icon :name="showSearchInput ? 'x' : 'search'"
@@ -64,11 +66,20 @@ export default defineComponent({
       openSidebar: false,
       languages: ['id', 'en'],
       showSearchInput: false,
+      search: '',
     };
   },
   methods: {
     toggleSidebar() {
       this.openSidebar = !this.openSidebar;
+    },
+    searchNews(e) {
+      if (e.key === 'Enter') {
+        this.$router.push({
+          path: 'search',
+          query: { ...this.$route.query, query: this.search },
+        });
+      }
     },
   },
   computed: {
@@ -79,6 +90,14 @@ export default defineComponent({
       set(value) {
         this.$emit('update:language', value);
       },
+    },
+    debounceQuery() {
+      return this.$route.query.query;
+    },
+  },
+  watch: {
+    debounceQuery() {
+      this.search = this.debounceQuery;
     },
   },
 });
