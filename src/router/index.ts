@@ -3,6 +3,7 @@ import News from '../views/News.vue';
 import Politic from '../views/Politic.vue';
 import Health from '../views/Health.vue';
 import Business from '../views/Business.vue';
+import Entertainment from '../views/Entertainment.vue';
 import Search from '../views/Search.vue';
 
 const routes = [
@@ -25,6 +26,16 @@ const routes = [
     path: '/business',
     name: 'Business',
     component: Business,
+  },
+  {
+    path: '/business',
+    name: 'Business',
+    component: Business,
+  },
+  {
+    path: '/entertainment',
+    name: 'Entertainment',
+    component: Entertainment,
   },
   {
     path: '/search',

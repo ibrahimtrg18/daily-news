@@ -17,6 +17,9 @@
           <li class="menu-item">
             <router-link to="/business">{{ $t('business.menu') }}</router-link>
           </li>
+          <li class="menu-item">
+            <router-link to="/entertainment">{{ $t('entertainment.menu') }}</router-link>
+          </li>
         </ul>
         <ul class="menu group">
           <li class="menu-item">
@@ -33,6 +36,9 @@
               </li>
               <li class="menu-item">
                 <router-link to="/business">{{ $t('business.menu') }}</router-link>
+              </li>
+              <li class="menu-item">
+                <router-link to="/entertainment">{{ $t('entertainment.menu') }}</router-link>
               </li>
             </ul>
           </li>
@@ -71,6 +77,7 @@
             <router-link to="/politic">{{ $t('politic.menu') }}</router-link>
             <router-link to="/health">{{ $t('health.menu') }}</router-link>
             <router-link to="/business">{{ $t('business.menu') }}</router-link>
+            <router-link to="/entertainment">{{ $t('entertainment.menu') }}</router-link>
           </li>
         </ul>
       </div>

@@ -16,6 +16,10 @@ export default {
       menu: 'Bisnis',
       title: 'Berita Bisnis',
     },
+    entertainment: {
+      menu: 'Hiburan',
+      title: 'Berita Hiburan',
+    },
     category: {
       menu: 'Kategori',
     },
@@ -39,6 +43,10 @@ export default {
     business: {
       menu: 'Business',
       title: 'Headlines Business',
+    },
+    entertainment: {
+      menu: 'Entertainment',
+      title: 'Headlines Entertainment',
     },
     category: {
       menu: 'Category',
