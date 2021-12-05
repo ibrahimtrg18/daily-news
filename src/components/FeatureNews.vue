@@ -61,7 +61,7 @@ export default defineComponent({
       }
     },
     onSlideToRight(value: number) {
-      if (this.slide >= -10) {
+      if (this.slide >= -7) {
         this.slide = value;
       }
     },
