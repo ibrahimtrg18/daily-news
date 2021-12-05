@@ -13,18 +13,21 @@
         :url="article.url"
       />
     </div>
+    <Pagination :page="page" @update:page="onPageChange" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import Card from './Card.vue';
+import Pagination from './Pagination.vue';
 import { Article } from '../interfaces/Articles';
 
 export default defineComponent({
   name: 'CategoryNews',
   components: {
     Card,
+    Pagination,
   },
   props: {
     title: {
@@ -32,6 +35,14 @@ export default defineComponent({
     },
     articles: {
       type: Array as PropType<Array<Article>>,
+    },
+    page: {
+      type: Number,
+    },
+  },
+  methods: {
+    onPageChange(newPageValue: number) {
+      this.$emit('update:page', newPageValue);
     },
   },
 });

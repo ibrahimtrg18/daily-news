@@ -1,6 +1,11 @@
 <template>
   <div class="content">
-    <CategoryNews :title="$t('health.title')" :articles="articles"> </CategoryNews>
+    <CategoryNews
+      :title="$t('health.title')"
+      :articles="articles"
+      :page="page"
+      @update:page="onPageChange"
+    />
   </div>
 </template>
 
@@ -20,15 +25,16 @@ export default defineComponent({
     return {
       articles: [] as Article[],
       isLoading: false,
+      page: 1,
     };
   },
   methods: {
-    async fetchTopHeadlinesByLanguage(language: string) {
+    async getTopHeadlines({ language, page }: { language?: string; page?: number }) {
       try {
         const data = await fetchTopHeadlines({
           country: language,
           limit: 10,
-          page: 1,
+          page,
           category: 'health',
         });
         return data;
@@ -39,10 +45,15 @@ export default defineComponent({
         };
       }
     },
+    onPageChange(newPageValue: number) {
+      if (newPageValue !== 0) {
+        this.page = newPageValue;
+      }
+    },
   },
   async mounted() {
     this.isLoading = true;
-    const data = await this.fetchTopHeadlinesByLanguage(this.language!);
+    const data = await this.getTopHeadlines({ language: this.language });
     if (data.articles) {
       this.articles = data.articles;
     }
@@ -51,12 +62,20 @@ export default defineComponent({
   watch: {
     async language(value) {
       this.isLoading = true;
-      const data = await this.fetchTopHeadlinesByLanguage(value!);
+      const data = await this.getTopHeadlines({ language: value });
 
       if (data.articles) {
         this.articles = data.articles;
       }
 
+      this.isLoading = false;
+    },
+    async page(value) {
+      this.isLoading = true;
+      const data = await this.getTopHeadlines({ page: value });
+      if (data.articles) {
+        this.articles = data.articles;
+      }
       this.isLoading = false;
     },
   },
