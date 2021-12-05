@@ -14,7 +14,7 @@
         <div class="navbar-search">
           <input
             type="text"
-            placeholder="Search"
+            :placeholder="$t('search.title')"
             class="search"
             :class="{ show: showSearchInput }"
             v-model="search"
@@ -41,7 +41,7 @@
         </div>
         <ul class="menu">
           <li class="menu-item">
-            <router-link to="/">{{ $t('menu.news') }}</router-link>
+            <router-link to="/">{{ $t('news.menu') }}</router-link>
             <router-link to="/politic">{{ $t('politic.menu') }}</router-link>
             <router-link to="/health">{{ $t('health.menu') }}</router-link>
           </li>
@@ -74,7 +74,7 @@ export default defineComponent({
       this.openSidebar = !this.openSidebar;
     },
     searchNews(e) {
-      if (e.key === 'Enter') {
+      if (e.keyCode === 13) {
         this.$router.push({
           path: 'search',
           query: { ...this.$route.query, query: this.search },
@@ -238,8 +238,8 @@ nav {
     }
 
     & > input.search {
-      font-size: 0.9rem;
-      padding: 0.15rem 0.45rem;
+      font-size: 1.5rem;
+      padding: 0.5rem 0.75rem;
       border: transparent;
       background-color: $backgroundColor;
       font-family: 'Outfit';
@@ -253,6 +253,8 @@ nav {
       top: calc(100% + 2px);
 
       @media screen and (min-width: 480px) {
+        font-size: 0.9rem;
+        padding: 0.15rem 0.45rem;
         top: unset;
       }
 
