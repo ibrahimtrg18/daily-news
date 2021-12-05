@@ -11,6 +11,17 @@
             <router-link to="/health">{{ $t('health.menu') }}</router-link>
           </li>
         </ul>
+        <div class="navbar-search">
+          <input
+            type="text"
+            placeholder="Search"
+            class="search"
+            :class="{ show: showSearchInput }"
+          />
+          <span class="icon search" @click="showSearchInput = !showSearchInput"
+            ><Icon :name="showSearchInput ? 'x' : 'search'"
+          /></span>
+        </div>
         <div class="navbar-language">
           <select v-model="propsLanguage">
             <option v-for="language in languages" :key="language" :value="language">
@@ -52,6 +63,7 @@ export default defineComponent({
     return {
       openSidebar: false,
       languages: ['id', 'en'],
+      showSearchInput: false,
     };
   },
   methods: {
@@ -117,7 +129,7 @@ nav {
         a {
           color: $primaryColor;
           text-decoration: none;
-          font-size: 1.25rem;
+          font-size: 1rem;
           font-weight: 600;
           line-height: 100%;
           padding: 0 10px;
@@ -171,7 +183,7 @@ nav {
         a {
           text-decoration: none;
           display: block;
-          font-size: 1.25rem;
+          font-size: 1rem;
           font-weight: 600;
           line-height: 100%;
           color: $primaryColor;
@@ -196,8 +208,73 @@ nav {
     cursor: pointer;
   }
 
-  .navbar-language {
+  .navbar-search {
+    display: flex;
+    align-items: center;
     margin-left: auto;
+    margin-left: auto;
+
+    @media screen and (min-width: 480px) {
+      position: relative;
+    }
+
+    & > input.search {
+      font-size: 0.9rem;
+      padding: 0.15rem 0.45rem;
+      border: transparent;
+      background-color: $backgroundColor;
+      font-family: 'Outfit';
+      color: $primaryColor;
+      width: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-out;
+      position: absolute;
+      right: 0;
+      top: calc(100% + 2px);
+
+      @media screen and (min-width: 480px) {
+        top: unset;
+      }
+
+      &.show {
+        width: 100%;
+        opacity: 1;
+        visibility: visible;
+        border-bottom: 1px solid $primaryColor;
+
+        @media screen and (min-width: 480px) {
+          position: relative;
+          width: 200px;
+        }
+      }
+
+      &:focus {
+        background-color: #fff;
+      }
+
+      &::placeholder {
+        color: $textColor;
+      }
+    }
+
+    & > .icon.search {
+      z-index: 1;
+      cursor: pointer;
+      background-color: $backgroundColor;
+      @media screen and (min-width: 480px) {
+        position: absolute;
+        right: 0;
+      }
+
+      & > svg {
+        padding: 4px;
+      }
+    }
+  }
+
+  .navbar-language {
+    margin-left: 10px;
 
     & > select {
       background: transparent;
