@@ -23,6 +23,7 @@ export default defineComponent({
       articles: [] as Article[],
       isLoading: false,
       page: 1,
+      limit: 12,
     };
   },
   computed: {
@@ -45,7 +46,7 @@ export default defineComponent({
         const data = await fetchEverything({
           query,
           language,
-          limit: 10,
+          limit: this.limit,
           page,
         });
         this.isLoading = false;
@@ -58,28 +59,49 @@ export default defineComponent({
       }
     },
     onPageChange(newPageValue: number) {
-      console.log(newPageValue);
       if (newPageValue !== 0) {
         this.page = newPageValue;
       }
     },
   },
+  async mounted() {
+    const data = await this.getArticles({
+      language: this.language,
+      query: this.query,
+      page: this.page,
+    });
+    if (data.articles) {
+      this.articles = data.articles;
+    }
+  },
   watch: {
     async language(value) {
-      const data = await this.getArticles({ query: this.query, language: value });
+      const data = await this.getArticles({
+        query: this.query,
+        language: value,
+        page: this.page,
+      });
       if (data.articles) {
         this.articles = data.articles;
       }
     },
     async query(value) {
       this.page = 1;
-      const data = await this.getArticles({ query: value });
+      const data = await this.getArticles({
+        query: value,
+        language: this.language,
+        page: value,
+      });
       if (data.articles) {
         this.articles = data.articles;
       }
     },
     async page(value) {
-      const data = await this.getArticles({ query: this.query, page: value });
+      const data = await this.getArticles({
+        query: this.query,
+        language: this.language,
+        page: value,
+      });
       if (data.articles) {
         this.articles = data.articles;
       }

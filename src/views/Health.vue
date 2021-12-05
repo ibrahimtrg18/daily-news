@@ -27,6 +27,7 @@ export default defineComponent({
       articles: [] as Article[],
       isLoading: false,
       page: 1,
+      limit: 10,
     };
   },
   methods: {
@@ -35,7 +36,7 @@ export default defineComponent({
         this.isLoading = true;
         const data = await fetchTopHeadlines({
           country: language,
-          limit: 10,
+          limit: this.limit,
           page,
           category: 'health',
         });
@@ -55,21 +56,21 @@ export default defineComponent({
     },
   },
   async mounted() {
-    const data = await this.getArticles({ language: this.language });
+    const data = await this.getArticles({ language: this.language, page: this.page });
     if (data.articles) {
       this.articles = data.articles;
     }
   },
   watch: {
     async language(value) {
-      const data = await this.getArticles({ language: value });
+      const data = await this.getArticles({ language: value, page: this.page });
 
       if (data.articles) {
         this.articles = data.articles;
       }
     },
     async page(value) {
-      const data = await this.getArticles({ page: value });
+      const data = await this.getArticles({ language: this.language, page: value });
       if (data.articles) {
         this.articles = data.articles;
       }
