@@ -59,6 +59,10 @@ img {
   height: auto;
 }
 
+span.icon {
+  display: flex;
+}
+
 .container {
   padding: 0 10px;
   @media screen and (min-width: 480px) {
