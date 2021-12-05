@@ -1,6 +1,6 @@
 <template>
   <div class="lastest-news">
-    <h1 class="title">{{ $t('message.newsTitle') }}</h1>
+    <h1 class="title">{{ $t('news.title') }}</h1>
     <div class="loading" v-if="isLoading">Loading...</div>
     <div class="news-list" v-else-if="articles.length > 0">
       <Card

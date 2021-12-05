@@ -6,9 +6,9 @@
         <div class="logo">dailynews</div>
         <ul class="menu">
           <li class="menu-item">
-            <router-link to="/">{{ $t('message.menuNews') }}</router-link>
-            <router-link to="/politic">{{ $t('message.menuPolitic') }}</router-link>
-            <router-link to="/health">{{ $t('message.menuHealth') }}</router-link>
+            <router-link to="/">{{ $t('news.menu') }}</router-link>
+            <router-link to="/politic">{{ $t('politic.menu') }}</router-link>
+            <router-link to="/health">{{ $t('health.menu') }}</router-link>
           </li>
         </ul>
         <div class="navbar-language">
@@ -28,9 +28,9 @@
         </div>
         <ul class="menu">
           <li class="menu-item">
-            <router-link to="/">{{ $t('message.menuNews') }}</router-link>
-            <router-link to="/politic">{{ $t('message.menuPolitic') }}</router-link>
-            <router-link to="/health">{{ $t('message.menuHealth') }}</router-link>
+            <router-link to="/">{{ $t('menu.news') }}</router-link>
+            <router-link to="/politic">{{ $t('politic.menu') }}</router-link>
+            <router-link to="/health">{{ $t('health.menu') }}</router-link>
           </li>
         </ul>
       </div>

@@ -1,22 +1,30 @@
 export default {
   id: {
-    message: {
-      menuNews: 'Berita',
-      newsTitle: 'Berita Utama',
-      menuPolitic: 'Politik',
-      politicTitle: 'Berita Utama Politik',
-      menuHealth: 'Kesehatan',
-      healthTitle: 'Berita Utama Kesehatan',
+    news: {
+      menu: 'Berita',
+      title: 'Berita Utama',
+    },
+    politic: {
+      menu: 'Politik',
+      title: 'Berita Politik',
+    },
+    health: {
+      menu: 'Kesehatan',
+      title: 'Berita Kesehatan',
     },
   },
   en: {
-    message: {
-      menuNews: 'News',
-      newsTitle: 'Top Headlines',
-      menuPolitic: 'Politics',
-      politicTitle: 'Top Headlines Politics',
-      menuHealth: 'Health',
-      healthTitle: 'Top Headlines Health',
+    news: {
+      menu: 'News',
+      title: 'Top Headlines',
+    },
+    politic: {
+      menu: 'Politics',
+      title: 'Headlines Politics',
+    },
+    health: {
+      menu: 'Health',
+      title: 'Headlines Health',
     },
   },
 };
