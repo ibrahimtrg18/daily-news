@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav">
+  <nav class="nav" :class="{ fixed: isScrolled }">
     <div class="navbar container">
       <div class="navbar-content">
         <span @click="toggleSidebar()" class="icon drawer"><Icon name="menu" /></span>
@@ -67,6 +67,9 @@ export default defineComponent({
       languages: ['id', 'en'],
       showSearchInput: false,
       search: '',
+      debounceOnScroll: false,
+      timeoutIdScroll: null,
+      isScrolled: false,
     };
   },
   methods: {
@@ -80,6 +83,9 @@ export default defineComponent({
           query: { ...this.$route.query, query: this.search },
         });
       }
+    },
+    handleScroll() {
+      this.isScrolled = window.scrollY !== 0;
     },
   },
   computed: {
@@ -95,9 +101,23 @@ export default defineComponent({
       return this.$route.query.query;
     },
   },
+  created() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   watch: {
     debounceQuery() {
       this.search = this.debounceQuery;
+    },
+    isScrolled(value) {
+      if (this.timeoutIdScroll) {
+        clearTimeout(this.timeoutIdScroll);
+      }
+      this.timeoutIdScroll = setTimeout(() => {
+        this.isScrolled = value;
+      }, 500);
     },
   },
 });
@@ -106,10 +126,24 @@ export default defineComponent({
 <style lang="scss">
 nav {
   position: relative;
-  box-shadow: 0 0 2px 0 $borderColor;
+  background-color: $backgroundColor;
+  width: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  top: 0;
+
+  &.fixed {
+    position: fixed;
+    box-shadow: 0 0 2px 1px $borderColor;
+    animation: slideDown 0.3s ease-out;
+
+    & ~ .container {
+      padding-top: 60px;
+    }
+  }
 
   .navbar {
-    background-color: $backgroundColor;
     color: $primaryColor;
     text-transform: uppercase;
 
@@ -136,7 +170,7 @@ nav {
         display: none;
         list-style: none;
         font-size: 1rem;
-        align-self: flex-end;
+        align-self: center;
         line-height: normal;
 
         @media screen and (min-width: 480px) {
@@ -250,7 +284,7 @@ nav {
       transition: all 0.3s ease-out;
       position: absolute;
       right: 0;
-      top: calc(100% + 2px);
+      top: 100%;
 
       @media screen and (min-width: 480px) {
         font-size: 0.9rem;
@@ -326,6 +360,15 @@ nav {
         cursor: pointer;
       }
     }
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-60px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
 </style>
