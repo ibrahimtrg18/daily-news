@@ -12,6 +12,9 @@ export default {
       menu: 'Kesehatan',
       title: 'Berita Kesehatan',
     },
+    search: {
+      title: 'Kata Kunci: {query}',
+    },
   },
   en: {
     news: {
@@ -25,6 +28,9 @@ export default {
     health: {
       menu: 'Health',
       title: 'Headlines Health',
+    },
+    search: {
+      title: 'Keyword: {query}',
     },
   },
 };
