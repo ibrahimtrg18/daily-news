@@ -54,7 +54,17 @@ export default defineComponent({
     };
   },
   methods: {
-    fetchTopHeadlines,
+    async fetchTopHeadlinesByLanguage(language: string) {
+      try {
+        const data = await fetchTopHeadlines({ country: language, limit: 10, page: 3 });
+        return data;
+      } catch (err) {
+        console.error(err);
+        return {
+          articles: [],
+        };
+      }
+    },
     onSlideToLeft(value: number) {
       if (this.slide < 0) {
         this.slide = value;
@@ -68,20 +78,24 @@ export default defineComponent({
   },
   async mounted() {
     this.isLoading = true;
-    const data = await fetchTopHeadlines({ country: this.language, limit: 10, page: 3 });
+    const data = await this.fetchTopHeadlinesByLanguage(this.language!);
+
+    if (data.articles) {
+      this.articles = data.articles;
+    }
 
     this.isLoading = false;
-    this.articles = data;
   },
   watch: {
     async language(value) {
       this.isLoading = true;
-      const data = await fetchTopHeadlines({
-        country: value,
-      });
+      const data = await this.fetchTopHeadlinesByLanguage(value!);
+
+      if (data.articles) {
+        this.articles = data.articles;
+      }
 
       this.isLoading = false;
-      this.articles = data;
     },
   },
 });

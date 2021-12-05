@@ -1,3 +1,5 @@
+import { ResponseTopHealines } from '../interfaces/ResponseTopHealines';
+
 const BASE_URL = process.env.VUE_APP_BASE_URL;
 const API_KEY = process.env.VUE_APP_API_KEY;
 
@@ -15,7 +17,7 @@ export async function fetchTopHeadlines({
   country = 'id',
   limit = 12,
   page = 1,
-}: fetchTopHeadlinesArguments) {
+}: fetchTopHeadlinesArguments): Promise<ResponseTopHealines> {
   try {
     const enCountry = country === 'en' ? 'us' : 'id';
     const res = await fetch(
@@ -25,10 +27,10 @@ export async function fetchTopHeadlines({
     const data = await res.json();
 
     if (res.ok) {
-      return data.articles;
+      return data;
     }
 
-    return [];
+    return data;
   } catch (err) {
     console.error(err);
     throw err;
