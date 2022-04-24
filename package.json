@@ -1,7 +1,12 @@
 {
-  "name": "test-prixa.ai",
+  "name": "daily-news",
   "version": "0.1.0",
   "private": true,
+  "email": "ibrahimtarigan@gmail.com",
+  "engines": {
+    "node": ">=16.13.1 <=16",
+    "npm": "~8.1.2"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -16,6 +21,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.11.11",
+    "@types/vue": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
