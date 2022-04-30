@@ -6,7 +6,7 @@
     <div class="news-image" v-else-if="!image">
       <img src="@/assets/images/no-image.png" alt="not found" />
     </div>
-    <div class="news-content" :class="{ full: !image }">
+    <div class="news-content">
       <h1 class="news-title" v-html="title" />
       <p class="news-description" v-html="description" />
     </div>
@@ -44,11 +44,10 @@ export default defineComponent({
 <style lang="scss">
 .news-item {
   display: flex;
-  align-items: flex-start;
-  max-width: 500px;
   text-decoration: none;
   color: $textColor;
   transition: transform 0.3s linear;
+  min-width: 500px;
 
   &:hover {
     background-color: #fff;
@@ -58,22 +57,17 @@ export default defineComponent({
   & > .news-image {
     display: block;
     flex: 1 0 200px;
-    width: max-content;
     height: 100%;
 
     & > img {
       height: 100%;
-      max-height: 350px;
       object-fit: cover;
     }
   }
 
   & > .news-content {
+    flex: 1 1 auto;
     padding: 10px;
-
-    &.full {
-      min-width: 500px;
-    }
 
     & > .news-title {
       font-size: 1.15rem;

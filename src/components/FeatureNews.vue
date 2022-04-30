@@ -16,6 +16,7 @@
       <NewsItem
         v-for="article in articles"
         :key="article.title"
+        ref="newsItem"
         :title="article.title"
         :description="article.description"
         :image="article.image"
@@ -92,6 +93,10 @@ export default defineComponent({
     this.articles = data.data;
 
     this.isLoading = false;
+
+    this.$nextTick(() => {
+      console.log((this.$refs.newsItem as any).$el.clientWidth);
+    });
   },
   watch: {
     async language(value) {
@@ -145,7 +150,7 @@ body {
   & > .news-list {
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    overflow-x: scroll;
     gap: 10px;
     -webkit-overflow-scrolling: touch;
     transition: transform 0.3s linear;
@@ -155,7 +160,7 @@ body {
     }
 
     @media screen and (min-width: 480px) {
-      overflow: unset;
+      overflow: hidden;
     }
   }
 }
