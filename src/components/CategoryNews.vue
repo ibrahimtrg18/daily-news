@@ -2,15 +2,15 @@
   <div class="category-news">
     <h1 class="title">{{ title }}</h1>
     <div class="loading" v-if="isLoading">Loading...</div>
-    <div class="news-list" v-else-if="articles.length > 0">
+    <div class="news-list" v-else-if="articles?.length > 0">
       <Card
         v-for="article in articles"
         :key="article.title"
         :title="article.title"
         :description="article.description"
-        :image="article.urlToImage"
-        :publishedAt="article.publishedAt"
-        :source="article.source.name"
+        :image="article.image"
+        :publishedAt="article.published_at"
+        :source="article.source"
         :url="article.url"
       />
     </div>
@@ -59,7 +59,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .category-news {
   & > .title {
     @include title(1.75rem, center, 0 0 25px 0);
@@ -67,20 +67,20 @@ export default defineComponent({
 
   & > .news-list {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: minmax(auto, 1fr);
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-template-rows: minmax(auto, minmax(0, 1fr));
     gap: 10px;
 
     @media screen and (min-width: 480px) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     @media screen and (min-width: 720px) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     @media screen and (min-width: 960px) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     & > .card {

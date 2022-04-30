@@ -1,9 +1,6 @@
 import moment from 'moment';
 
-interface convertDateTimeFromNowArguments {
-  isoTimestamp: string;
-}
-
-export function convertDateTimeFromNow({ isoTimestamp }: convertDateTimeFromNowArguments): string {
+export function convertDateTimeFromNow(isoTimestamp: string | undefined): string {
+  if (!isoTimestamp) return '';
   return moment(isoTimestamp).fromNow();
 }

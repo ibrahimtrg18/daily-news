@@ -1,6 +1,7 @@
 <template>
   <a :href="url" target="_blank" class="card">
-    <img class="card-image" :src="image" :alt="title" v-if="image" />
+    <iframe width="100%" height="315" :src="image" v-if="image && image.includes('youtube')" />
+    <img class="card-image" :src="image" :alt="title" v-else-if="image" />
     <img class="card-image" src="@/assets/images/no-image.png" alt="not found" v-else-if="!image" />
     <div class="card-content">
       <h1 class="card-title" v-html="title" />
@@ -109,9 +110,6 @@ export default defineComponent({
         width: 1px;
         height: 0.75rem;
         background-color: $textColor;
-      }
-
-      & > .card-time {
       }
     }
   }

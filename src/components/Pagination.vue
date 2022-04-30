@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" scoped>
 import { defineComponent } from 'vue';
 import Icon from './Icon.vue';
 

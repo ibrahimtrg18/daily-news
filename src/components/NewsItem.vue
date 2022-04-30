@@ -13,7 +13,7 @@
   </a>
 </template>
 
-<script lang="ts">
+<script lang="ts" scoped>
 import { defineComponent } from 'vue';
 
 export default defineComponent({

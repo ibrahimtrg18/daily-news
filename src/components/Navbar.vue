@@ -105,7 +105,7 @@ export default defineComponent({
   data() {
     return {
       openSidebar: false,
-      languages: ['id', 'en'],
+      languages: ['en'],
       showSearchInput: false,
       search: '',
       debounceOnScroll: false,
@@ -165,7 +165,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 nav {
   position: relative;
   background-color: $backgroundColor;

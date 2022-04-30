@@ -1,6 +1,11 @@
 <template>
   <div class="content">
-    <ListNews :language="language" :articles="articles" :title="$t('news.title')" />
+    <ListNews
+      :language="language"
+      :articles="articles"
+      :title="$t('news.title')"
+      :isLoading="isLoading"
+    />
     <FeatureNews :language="language" />
   </div>
 </template>
@@ -9,8 +14,9 @@
 import { defineComponent } from 'vue';
 import ListNews from '../components/ListNews.vue';
 import FeatureNews from '../components/FeatureNews.vue';
-import { fetchTopHeadlines } from '../utils/services';
+import { fetchNews } from '../services/news';
 import { Article } from '../interfaces/Articles';
+import { ResponseNews } from '@/interfaces/ResponseNews';
 
 export default defineComponent({
   name: 'News',
@@ -22,41 +28,45 @@ export default defineComponent({
   data() {
     return {
       isLoading: false,
-      articles: [] as Article[],
-      limit: 10,
+      articles: [] as Array<Article> | undefined,
+      limit: 8,
     };
   },
   methods: {
-    async fetchTopHeadlinesByLanguage(language: string) {
+    async fetchNewsByLanguage(language: string) {
       try {
         this.isLoading = true;
-        const data = await fetchTopHeadlines({
-          country: language,
+        const data = await fetchNews({
           limit: this.limit,
-          page: 1,
+          offset: 0,
+          languages: language,
         });
         this.isLoading = false;
+
         return data;
       } catch (err) {
         console.error(err);
-        return {
-          articles: [],
+        const data: ResponseNews = {
+          pagination: {
+            limit: 0,
+            offset: 0,
+            count: 0,
+            total: 0,
+          },
+          data: [],
         };
+        return data;
       }
     },
   },
   async mounted() {
-    const data = await this.fetchTopHeadlinesByLanguage(this.language!);
-    if (data.articles) {
-      this.articles = data.articles;
-    }
+    const data = await this.fetchNewsByLanguage(this.language);
+    this.articles = data.data;
   },
   watch: {
     async language(value) {
-      const data = await this.fetchTopHeadlinesByLanguage(value!);
-      if (data.articles) {
-        this.articles = data.articles;
-      }
+      const data = await this.fetchNewsByLanguage(value);
+      this.articles = data.data;
     },
   },
 });

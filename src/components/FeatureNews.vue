@@ -12,15 +12,15 @@
       </div>
     </div>
     <div class="loading" v-if="isLoading">Loading...</div>
-    <div class="news-list" v-show="articles.length > 0">
+    <div class="news-list" v-show="articles?.length > 0">
       <NewsItem
         v-for="article in articles"
         :key="article.title"
         :title="article.title"
         :description="article.description"
-        :image="article.urlToImage"
-        :publishedAt="article.publishedAt"
-        :source="article.source.name"
+        :image="article.image"
+        :publishedAt="article.published_at"
+        :source="article.source"
         :url="article.url"
         :style="{ transform: 'translateX(' + slide * 500 + 'px)' }"
       />
@@ -30,9 +30,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { fetchTopHeadlines } from '../utils/services';
 import NewsItem from './NewsItem.vue';
 import Icon from './Icon.vue';
+import { fetchNews } from '../services/news';
 import { Article } from '../interfaces/Articles';
 
 export default defineComponent({
@@ -44,25 +44,34 @@ export default defineComponent({
   props: {
     language: {
       type: String,
+      required: true,
     },
   },
   data() {
     return {
-      articles: [] as Article[],
+      articles: [] as Array<Article> | undefined,
       isLoading: false,
       slide: 0,
     };
   },
   methods: {
-    async fetchTopHeadlinesByLanguage(language: string) {
+    async fetchNewsByLanguage(language: string) {
       try {
-        const data = await fetchTopHeadlines({ country: language, limit: 10, page: 3 });
+        this.isLoading = true;
+        const data = await fetchNews({
+          limit: 10,
+          offset: 0,
+          languages: language,
+        });
+        this.isLoading = false;
+
         return data;
       } catch (err) {
         console.error(err);
-        return {
-          articles: [],
+        const data = {
+          data: [],
         };
+        return data;
       }
     },
     onSlideToLeft(value: number) {
@@ -78,30 +87,25 @@ export default defineComponent({
   },
   async mounted() {
     this.isLoading = true;
-    const data = await this.fetchTopHeadlinesByLanguage(this.language!);
+    const data = await this.fetchNewsByLanguage(this.language);
 
-    if (data.articles) {
-      this.articles = data.articles;
-    }
+    this.articles = data.data;
 
     this.isLoading = false;
   },
   watch: {
     async language(value) {
       this.isLoading = true;
-      const data = await this.fetchTopHeadlinesByLanguage(value!);
+      const data = await this.fetchNewsByLanguage(value);
 
-      if (data.articles) {
-        this.articles = data.articles;
-      }
-
+      this.articles = data.data;
       this.isLoading = false;
     },
   },
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 body {
   overflow-x: hidden;
 }

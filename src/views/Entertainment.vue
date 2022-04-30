@@ -15,7 +15,7 @@
 import { defineComponent } from 'vue';
 import { Article } from '../interfaces/Articles';
 import CategoryNews from '../components/CategoryNews.vue';
-import { fetchTopHeadlines } from '../utils/services';
+import { fetchNews } from '../services/news';
 
 export default defineComponent({
   name: 'Entertainment',
@@ -33,17 +33,17 @@ export default defineComponent({
     };
   },
   methods: {
-    async getArticles({ language, page }: { language?: string; page?: number }) {
+    async getArticles({ language, page }: { language?: string; page: number }) {
       try {
         this.isLoading = true;
-        const data = await fetchTopHeadlines({
-          country: language,
+        const data = await fetchNews({
           limit: this.limit,
-          page,
-          category: 'entertainment',
+          offset: page - 1,
+          categories: 'entertainment',
+          languages: language,
         });
         this.isLoading = false;
-        if (this.limit * this.page >= data.totalResults) {
+        if (this.limit * this.page >= data.pagination.total) {
           this.disabledRightButton = true;
         } else {
           this.disabledRightButton = false;
@@ -52,7 +52,7 @@ export default defineComponent({
       } catch (err) {
         console.error(err);
         return {
-          articles: [],
+          data: [],
         };
       }
     },
@@ -64,21 +64,21 @@ export default defineComponent({
   },
   async mounted() {
     const data = await this.getArticles({ language: this.language, page: this.page });
-    if (data.articles) {
-      this.articles = data.articles;
+    if (data.data) {
+      this.articles = data.data;
     }
   },
   watch: {
     async language(value) {
       const data = await this.getArticles({ language: value, page: this.page });
-      if (data.articles) {
-        this.articles = data.articles;
+      if (data.data) {
+        this.articles = data.data;
       }
     },
     async page(value) {
       const data = await this.getArticles({ language: this.language, page: value });
-      if (data.articles) {
-        this.articles = data.articles;
+      if (data.data) {
+        this.articles = data.data;
       }
     },
   },

@@ -1,6 +1,11 @@
 <template>
   <div class="content"></div>
-  <ListNews :language="language" :articles="articles" :title="$t('search.title', { query })" />
+  <ListNews
+    :language="language"
+    :articles="articles"
+    :title="$t('search.title', { query })"
+    :isLoading="isLoading"
+  />
   <Pagination :page="page" @update:page="onPageChange" :disabledRightButton="disabledRightButton" />
 </template>
 
@@ -9,7 +14,7 @@ import { defineComponent } from 'vue';
 import ListNews from '../components/ListNews.vue';
 import Pagination from '../components/Pagination.vue';
 import { Article } from '../interfaces/Articles';
-import { fetchEverything } from '../utils/services';
+import { fetchNews } from '../services/news';
 
 export default defineComponent({
   name: 'Search',
@@ -40,18 +45,18 @@ export default defineComponent({
     }: {
       query: string;
       language?: string;
-      page?: number;
+      page: number;
     }) {
       try {
         this.isLoading = true;
-        const data = await fetchEverything({
-          query,
-          language,
+        const data = await fetchNews({
+          keywords: query,
           limit: this.limit,
-          page,
+          offset: page - 1,
+          languages: language,
         });
         this.isLoading = false;
-        if (this.limit * this.page >= data.totalResults) {
+        if (this.limit * this.page >= data.pagination.total) {
           this.disabledRightButton = true;
         } else {
           this.disabledRightButton = false;
@@ -60,7 +65,7 @@ export default defineComponent({
       } catch (err) {
         console.error(err);
         return {
-          articles: [],
+          data: [],
         };
       }
     },
@@ -76,8 +81,8 @@ export default defineComponent({
       query: this.query,
       page: this.page,
     });
-    if (data.articles) {
-      this.articles = data.articles;
+    if (data.data) {
+      this.articles = data.data;
     }
   },
   watch: {
@@ -87,8 +92,8 @@ export default defineComponent({
         language: value,
         page: this.page,
       });
-      if (data.articles) {
-        this.articles = data.articles;
+      if (data.data) {
+        this.articles = data.data;
       }
     },
     async query(value) {
@@ -98,8 +103,8 @@ export default defineComponent({
         language: this.language,
         page: value,
       });
-      if (data.articles) {
-        this.articles = data.articles;
+      if (data.data) {
+        this.articles = data.data;
       }
     },
     async page(value) {
@@ -108,8 +113,8 @@ export default defineComponent({
         language: this.language,
         page: value,
       });
-      if (data.articles) {
-        this.articles = data.articles;
+      if (data.data) {
+        this.articles = data.data;
       }
     },
   },
