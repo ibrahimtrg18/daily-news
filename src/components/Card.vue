@@ -91,6 +91,7 @@ export default defineComponent({
       font-size: 0.85rem;
       line-height: 110%;
       margin-bottom: 10px;
+      overflow: auto;
     }
 
     & > .card-footer {
