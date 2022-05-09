@@ -63,11 +63,32 @@
           /></span>
         </div>
         <div class="navbar-language">
-          <select v-model="propsLanguage">
-            <option v-for="language in languages" :key="language" :value="language">
-              {{ language }}
+          <!-- <select v-model="propsLanguage">
+            <option v-for="language in languages" :key="language.label" :value="language.code">
+              {{ language.label }}
             </option>
-          </select>
+          </select> -->
+          <div
+            class="navbar-language-selected"
+            :class="{ active: showLanguageList }"
+            @click="showLanguageList = !showLanguageList"
+            v-click-outside="() => (showLanguageList = false)"
+          >
+            <!-- {{ language.label }} -->
+            <img :src="getImg(language.filename)" />
+          </div>
+          <ul class="navbar-language-list" :class="{ show: showLanguageList }">
+            <li
+              class="navbar-language-item"
+              v-for="language in languages"
+              :key="language.label"
+              :value="language.code"
+              @click="onLanguageChange(language)"
+            >
+              <img :src="getImg(language.filename)" />
+              <!-- {{ language.label }} -->
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -93,25 +114,59 @@
 </template>
 
 <script>
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 import { defineComponent } from 'vue';
 import Icon from './Icon.vue';
+
+const clickOutside = {
+  beforeMount: (el, binding) => {
+    // eslint-disable-next-line no-param-reassign
+    el.clickOutsideEvent = (event) => {
+      if (!(el === event.target || el.contains(event.target))) {
+        binding.value();
+      }
+    };
+    document.addEventListener('click', el.clickOutsideEvent);
+  },
+  unmounted: (el) => {
+    document.removeEventListener('click', el.clickOutsideEvent);
+  },
+};
 
 export default defineComponent({
   name: 'Navbar',
   components: {
     Icon,
   },
+  directives: {
+    'click-outside': clickOutside,
+  },
   props: ['language'],
   data() {
     return {
       openSidebar: false,
-      languages: ['en'],
+      languages: [
+        { label: 'Arabic', code: 'ar', filename: 'Saudi Arabia' },
+        { label: 'German', code: 'de', filename: 'German' },
+        { label: 'English', code: 'en', filename: 'United Kingdom' },
+        { label: 'Spanish', code: 'es', filename: 'Spain' },
+        { label: 'French', code: 'fr', filename: 'France' },
+        { label: 'Italian', code: 'it', filename: 'Italy' },
+        { label: 'Dutch', code: 'nl', filename: 'Netherlands' },
+        { label: 'Norwegian', code: 'no', filename: 'Norway' },
+        { label: 'Portuguese', code: 'pt', filename: 'Portugal' },
+        { label: 'Russian', code: 'ru', filename: 'Russia' },
+        { label: 'Swedish', code: 'se', filename: 'Sweden' },
+        { label: 'Chinese', code: 'zh', filename: 'China' },
+      ],
       showSearchInput: false,
       search: '',
       debounceOnScroll: false,
       timeoutIdScroll: null,
       isScrolled: false,
       openDropdown: false,
+      showLanguageList: false,
     };
   },
   methods: {
@@ -128,6 +183,12 @@ export default defineComponent({
     },
     handleScroll() {
       this.isScrolled = window.scrollY !== 0;
+    },
+    onLanguageChange(value) {
+      this.$emit('update:language', value);
+    },
+    getImg(filename) {
+      return require(`../assets/images/${filename}.png`);
     },
   },
   computed: {
@@ -160,6 +221,9 @@ export default defineComponent({
       this.timeoutIdScroll = setTimeout(() => {
         this.isScrolled = value;
       }, 500);
+    },
+    showLanguageList(value) {
+      console.log(value);
     },
   },
 });
@@ -439,7 +503,50 @@ nav {
   }
 
   .navbar-language {
+    position: relative;
     margin-left: 10px;
+
+    & > .navbar-language-selected {
+      width: 40px;
+      padding: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $whiteColor;
+      }
+
+      &.active {
+        background-color: #fff;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.12);
+      }
+    }
+
+    & > .navbar-language-list {
+      list-style: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      display: none;
+      max-height: 200px;
+      overflow: auto;
+      background-color: #fff;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.12);
+
+      &.show {
+        display: block;
+      }
+
+      & > .navbar-language-item {
+        display: inline-block;
+        width: 40px;
+        padding: 4px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $primaryColor;
+        }
+      }
+    }
 
     & > select {
       background: transparent;
