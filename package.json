@@ -4,7 +4,7 @@
   "private": true,
   "email": "ibrahimtarigan@gmail.com",
   "engines": {
-    "node": ">=16.13.1 <=16",
+    "node": ">=14.0.0 <=16",
     "npm": "~8.1.2"
   },
   "scripts": {

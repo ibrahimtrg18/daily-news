@@ -12,11 +12,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { ResponseNews } from '@/interfaces/ResponseNews';
 import ListNews from '../components/ListNews.vue';
 import FeatureNews from '../components/FeatureNews.vue';
 import { fetchNews } from '../services/news';
 import { Article } from '../interfaces/Articles';
-import { ResponseNews } from '@/interfaces/ResponseNews';
 
 export default defineComponent({
   name: 'News',
